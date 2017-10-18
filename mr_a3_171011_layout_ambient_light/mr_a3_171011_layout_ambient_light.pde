@@ -1,3 +1,5 @@
+PImage m;
+
 color c_bg = color(60, 71, 72); // background color of the application
 color c_highlight = color(83, 93, 96); // highlight color to highlight important UI elements
 color c_cursor = color(33, 33, 33); //color of the cursor
@@ -24,7 +26,7 @@ void setup() {
   stroke(c_cursor);
   pos_preview = new Position(30, 30);
   b_preview = new Button(c_highlight, pos_preview, 640, 60); //preview box
-  
+
   strokeWeight(1);
   pos_sunrise = new Position(50., 580.);
   b_sunrise = new Button(c_highlight, pos_sunrise, 600., 80.); //first suggestion "Sunrise"
@@ -42,6 +44,30 @@ void setup() {
   text("Underwater World", 70, 740);
   pos_water_color_field = new Position(350, 700);
   b_water_color_field = new Button(c_underwater, pos_water_color_field, 290, 60) ;
+
+
+
+  //ColorWheel
+  smooth();
+  setUpColorWheel(width/2, height/2.5, 350, 350);
+}
+
+
+void setUpColorWheel(float w,float h, float a, float b) {
+  ellipseMode(CENTER);
+  colorMode(HSB, 100);
+  for (float x=0; x<width+w; x++) {
+    for (float y=0; y<height+h; y++) {
+      if (dist(200, 200, x, y)<=a/2) {
+        stroke(map(atan2(x-200, y-200), -PI, PI, 0, 100), map(dist(200, 200, x, y), 0, 190, 0, 100), 100);
+        point(x, y);
+      }
+    }
+  }
+  noFill();
+  stroke(0);
+  ellipse(w,h,a,b);
+  m=get();
 }
 
 void draw() {
@@ -50,13 +76,15 @@ void draw() {
   select_brightness();
   select_saturation();
 
+  drawColorWheel();
+
   //Change the cusor shape in front of a button
   if ((mouseX >= pos_sunrise.x && mouseX <= pos_sunrise.x + b_sunrise.getWidth() && mouseY >= pos_sunrise.y && mouseY <= pos_sunrise.y + b_sunrise.getHeight()) || (mouseX >= pos_underwater.x && mouseX <= pos_underwater.x + b_underwater.getWidth() && mouseY >= pos_underwater.y && mouseY <= pos_underwater.y + b_underwater.getHeight())) {
     cursor(HAND);
   } else {
     cursor(ARROW);
   }
-  
+
   //Change the color of the preview box if a button is pressed
   if (mousePressed == true) {
     if (mouseX >= pos_sunrise.x && mouseX <= pos_sunrise.x + b_sunrise.getWidth() && mouseY >= pos_sunrise.y && mouseY <= pos_sunrise.y + b_sunrise.getHeight()) {
@@ -64,6 +92,15 @@ void draw() {
     } else if (mouseX >= pos_underwater.x && mouseX <= pos_underwater.x + b_underwater.getWidth() && mouseY >= pos_underwater.y && mouseY <= pos_underwater.y + b_underwater.getHeight()) {
       b_preview.setColor(c_underwater);
     }
+  }
+}
+
+void drawColorWheel() {
+  image(m, 0, 0);
+  if (mousePressed) {
+    fill(get(mouseX, mouseY));
+    stroke(0);
+    ellipse(mouseX, mouseY, 30, 30);
   }
 }
 

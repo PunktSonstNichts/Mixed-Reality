@@ -136,9 +136,10 @@ class Button {
   }
 
   void setColor(color c_new) {
-    c = c_new;
-    fill(c);
-    rect(pos.x, pos.y, width, height);
+    //c = c_new;
+    //fill(c);
+    //rect(pos.x, pos.y, width, height);
+    c_selected = c_new;
   }
 }
 
@@ -149,6 +150,9 @@ void color_preview() {
   } else {
     fill(c_selected);
   }
+  strokeWeight(1);
+  stroke(c_highlight);
+  rect(30,30, 640, 60);
 }
 
 // All Functions for the color wheel 

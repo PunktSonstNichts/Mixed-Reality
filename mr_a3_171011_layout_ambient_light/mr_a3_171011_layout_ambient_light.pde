@@ -58,8 +58,8 @@ void setUpColorWheel(float w,float h, float a, float b) {
   colorMode(HSB, 100);
   for (float x=0; x<width+w; x++) {
     for (float y=0; y<height+h; y++) {
-      if (dist(200, 200, x, y)<=a/2) {
-        stroke(map(atan2(x-200, y-200), -PI, PI, 0, 100), map(dist(200, 200, x, y), 0, 190, 0, 100), 100);
+      if (dist(w, h, x, y)<=a/2) {
+        stroke(map(atan2(x-w, y-h), -PI, PI, 0, 100), map(dist(w, h, x, y), 0, 190, 0, 100), 100);
         point(x, y);
       }
     }
@@ -75,7 +75,6 @@ void draw() {
   color_picker();
   select_brightness();
   select_saturation();
-
   drawColorWheel();
 
   //Change the cusor shape in front of a button
@@ -137,9 +136,10 @@ class Button {
   }
 
   void setColor(color c_new) {
-    c = c_new;
-    fill(c);
-    rect(pos.x, pos.y, width, height);
+    //c = c_new;
+    //fill(c);
+    //rect(pos.x, pos.y, width, height);
+    c_selected = c_new;
   }
 }
 
@@ -150,6 +150,9 @@ void color_preview() {
   } else {
     fill(c_selected);
   }
+  strokeWeight(1);
+  stroke(c_highlight);
+  rect(30,30, 640, 60);
 }
 
 // All Functions for the color wheel 

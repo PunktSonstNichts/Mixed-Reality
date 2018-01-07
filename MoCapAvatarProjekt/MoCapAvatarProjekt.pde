@@ -93,6 +93,9 @@ void draw() {
   // JUST TEMP FOR TESTING THE PARTICLE BEHAVIOR
   particlesys0.addForce(antig); // spheres
   particlesys1.addForce(antig); // cubes 
+  
+  particlesys0.addParticle(random(3, 8));
+  particlesys1.addParticle(random(3, 8));
 
   if (keyPressed) {
     
@@ -102,10 +105,8 @@ void draw() {
     particlesys1.addForce(wind); // cubes
   }
 
-  particlesys0.addParticle(random(3, 8));
+  
   particlesys0.startSys();
-
-  particlesys1.addParticle(random(3, 8));
   particlesys1.startSys();  
 
   mocapinst.drawMocap();
@@ -199,8 +200,15 @@ class MocapInstance {
       
       */
       
+      //PVector point = new PVector(midX/2, midY/2, midZ/2);
+      PVector point = new PVector(itJ.parent.position.get(currentFrame).x + translation[0], itJ.parent.position.get(currentFrame).y + translation[1], itJ.parent.position.get(currentFrame).z + translation[2]);
+      //PVector point = new PVector(150,0,150);
+      particlesys0.fleefrombody(point);
+      particlesys1.fleefrombody(point);
 
-      //if (!(itJ.name.toString().equals("RightToe")||itJ.name.toString().equals("LeftToe") ||itJ.name.toString().equals("EndSitenull"))) {
+
+      
+            //if (!(itJ.name.toString().equals("RightToe")||itJ.name.toString().equals("LeftToe") ||itJ.name.toString().equals("EndSitenull"))) {
       // draw bodyparts
       if (countEnds == 0) {
         println("Torso");
@@ -219,19 +227,16 @@ class MocapInstance {
         fill(0, 255, 255);
       } else
         fill(0);
-
       
-      //PVector point = new PVector(midX/2, midY/2, midZ/2);
-      PVector point = new PVector(itJ.parent.position.get(currentFrame).x + translation[0], itJ.parent.position.get(currentFrame).y + translation[1], itJ.parent.position.get(currentFrame).z + translation[2]);
-      //PVector point = new PVector(150,0,150);
-      particlesys0.fleefrombody(point);
-      particlesys1.fleefrombody(point);
-
       pushMatrix();
       translate(itJ.position.get(currentFrame).x, itJ.position.get(currentFrame).y, itJ.position.get(currentFrame).z);
       float midX = -(itJ.position.get(currentFrame).x - itJ.parent.position.get(currentFrame).x) ;
       float midY = -(itJ.position.get(currentFrame).y - itJ.parent.position.get(currentFrame).y) ;
       float midZ = -(itJ.position.get(currentFrame).z - itJ.parent.position.get(currentFrame).z) ;
+
+
+
+
 
 
       translate(midX/2, midY/2, midZ/2);

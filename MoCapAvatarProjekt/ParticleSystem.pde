@@ -9,12 +9,12 @@ class ParticleSystem {
 
   void addParticle(float size_) {
     size = size_;
-    particleList.add(new Particle(size, new PVector(random(-200, 200), 0, random(-200, 200))));
+    particleList.add(new Particle(size, new PVector(random(-300, 300), 0, random(-300, 300))));
   }
 
   void addParticleCube(float size_) {
     size = size_;
-    particleList.add(new ParticleCube(size, new PVector(random(-200, 200), 0, random(-200, 200))));
+    particleList.add(new ParticleCube(size, new PVector(random(-300, 300), 0, random(-300, 300))));
   }
 
   void addForce(PVector force) {
@@ -23,8 +23,8 @@ class ParticleSystem {
   }
   
   void fleefrombody(PVector body){
-      for (Particle particle : particleList)
-        particle.fleefrombody(body);   
+    for (Particle particle : particleList)
+      particle.fleefrombody(body);
   }
 
 

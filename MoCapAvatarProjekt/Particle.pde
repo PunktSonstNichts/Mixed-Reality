@@ -46,7 +46,7 @@ class Particle {
      // force towards the body, if too far away
      // random change, so there is no "ring" around the body,
      // but a more natural spread
-     if(distance >= 80 && random(0,distance) >= 30){
+     if(distance >= 160 && random(0,distance) >= 30){
        temp.mult(-1);
      }
      
